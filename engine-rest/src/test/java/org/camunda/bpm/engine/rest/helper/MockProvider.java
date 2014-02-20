@@ -12,19 +12,6 @@
  */
 package org.camunda.bpm.engine.rest.helper;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.camunda.bpm.application.ProcessApplicationInfo;
 import org.camunda.bpm.engine.authorization.Authorization;
 import org.camunda.bpm.engine.authorization.Permission;
@@ -38,6 +25,7 @@ import org.camunda.bpm.engine.history.HistoricActivityInstance;
 import org.camunda.bpm.engine.history.HistoricActivityStatistics;
 import org.camunda.bpm.engine.history.HistoricProcessInstance;
 import org.camunda.bpm.engine.history.HistoricVariableInstance;
+import org.camunda.bpm.engine.history.UserOperationLogEntry;
 import org.camunda.bpm.engine.identity.Group;
 import org.camunda.bpm.engine.identity.User;
 import org.camunda.bpm.engine.impl.calendar.DateTimeUtil;
@@ -60,13 +48,25 @@ import org.camunda.bpm.engine.task.IdentityLink;
 import org.camunda.bpm.engine.task.IdentityLinkType;
 import org.camunda.bpm.engine.task.Task;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 /**
  * Provides mocks for the basic engine entities, such as
  * {@link ProcessDefinition}, {@link User}, etc., that are reused across the
  * various kinds of tests.
  *
  * @author Thorben Lindhauer
- *
  */
 public abstract class MockProvider {
 
@@ -211,7 +211,7 @@ public abstract class MockProvider {
   public static final String EXAMPLE_JOB_NO_EXCEPTION_MESSAGE = "";
   public static final String EXAMPLE_EXCEPTION_MESSAGE = "aExceptionMessage";
   public static final String EXAMPLE_EMPTY_JOB_ID = "";
-  public static final String EXAMPLE_DUE_DATE =  "2013-04-23T13:42:43";
+  public static final String EXAMPLE_DUE_DATE = "2013-04-23T13:42:43";
   public static final Boolean EXAMPLE_WITH_RETRIES_LEFT = true;
   public static final Boolean EXAMPLE_EXECUTABLE = true;
   public static final Boolean EXAMPLE_TIMERS = true;
@@ -225,8 +225,8 @@ public abstract class MockProvider {
   public static final String EXAMPLE_RESOURCE_TYPE_ID_STRING = "12345678";
   public static final String EXAMPLE_RESOURCE_ID = "exampleResourceId";
   public static final String EXAMPLE_PERMISSION_NAME = "READ";
-  public static final Permission[] EXAMPLE_PERMISSION_VALUES = new Permission[] { Permissions.READ, Permissions.UPDATE };
-  public static final String[] EXAMPLE_PERMISSION_VALUES_STRING = new String[] { "READ", "UPDATE" };
+  public static final Permission[] EXAMPLE_PERMISSION_VALUES = new Permission[]{Permissions.READ, Permissions.UPDATE};
+  public static final String[] EXAMPLE_PERMISSION_VALUES_STRING = new String[]{"READ", "UPDATE"};
 
   public static final String EXAMPLE_AUTHORIZATION_ID = "someAuthorizationId";
   public static final int EXAMPLE_AUTHORIZATION_TYPE = 0;
@@ -263,7 +263,6 @@ public abstract class MockProvider {
   public static final String EXAMPLE_HISTORIC_ACTIVITY_INSTANCE_FINISHED_BEFORE = "2013-04-23T13:42:43";
   public static final boolean EXAMPLE_HISTORIC_ACTIVITY_INSTANCE_IS_CANCELED = true;
   public static final boolean EXAMPLE_HISTORIC_ACTIVITY_INSTANCE_IS_COMPLETE_SCOPE = true;
-
 
   // tasks
   public static Task createMockTask() {
@@ -558,16 +557,16 @@ public abstract class MockProvider {
   // jobs
   public static Job createMockJob() {
     Job mock = new MockJobBuilder()
-      .id(EXAMPLE_JOB_ID)
-      .processInstanceId(EXAMPLE_PROCESS_INSTANCE_ID)
-      .executionId(EXAMPLE_EXECUTION_ID)
-      .processDefinitionId(EXAMPLE_PROCESS_DEFINITION_ID)
-      .processDefinitionKey(EXAMPLE_PROCESS_DEFINITION_KEY)
-      .retries(EXAMPLE_JOB_RETRIES)
-      .exceptionMessage(EXAMPLE_JOB_NO_EXCEPTION_MESSAGE)
-      .dueDate(DateTimeUtil.parseDateTime(EXAMPLE_DUE_DATE).toDate())
-      .suspended(EXAMPLE_JOB_IS_SUSPENDED)
-      .build();
+        .id(EXAMPLE_JOB_ID)
+        .processInstanceId(EXAMPLE_PROCESS_INSTANCE_ID)
+        .executionId(EXAMPLE_EXECUTION_ID)
+        .processDefinitionId(EXAMPLE_PROCESS_DEFINITION_ID)
+        .processDefinitionKey(EXAMPLE_PROCESS_DEFINITION_KEY)
+        .retries(EXAMPLE_JOB_RETRIES)
+        .exceptionMessage(EXAMPLE_JOB_NO_EXCEPTION_MESSAGE)
+        .dueDate(DateTimeUtil.parseDateTime(EXAMPLE_DUE_DATE).toDate())
+        .suspended(EXAMPLE_JOB_IS_SUSPENDED)
+        .build();
     return mock;
   }
 
@@ -641,19 +640,19 @@ public abstract class MockProvider {
   }
 
   public static List<Authorization> createMockAuthorizations() {
-    return Arrays.asList(new Authorization[] { createMockGlobalAuthorization(), createMockGrantAuthorization(), createMockRevokeAuthorization() });
+    return Arrays.asList(new Authorization[]{createMockGlobalAuthorization(), createMockGrantAuthorization(), createMockRevokeAuthorization()});
   }
 
   public static List<Authorization> createMockGrantAuthorizations() {
-    return Arrays.asList(new Authorization[] { createMockGrantAuthorization() });
+    return Arrays.asList(new Authorization[]{createMockGrantAuthorization()});
   }
 
   public static List<Authorization> createMockRevokeAuthorizations() {
-    return Arrays.asList(new Authorization[] { createMockRevokeAuthorization() });
+    return Arrays.asList(new Authorization[]{createMockRevokeAuthorization()});
   }
 
   public static List<Authorization> createMockGlobalAuthorizations() {
-    return Arrays.asList(new Authorization[] { createMockGlobalAuthorization() });
+    return Arrays.asList(new Authorization[]{createMockGlobalAuthorization()});
   }
 
   public static Date createMockDuedate() {
@@ -813,27 +812,27 @@ public abstract class MockProvider {
   }
 
   public static List<ProcessInstance> createAnotherMockProcessInstanceList() {
-  	List<ProcessInstance> mockProcessInstanceList = new ArrayList<ProcessInstance>();
-  	mockProcessInstanceList.add(createMockInstance());
-  	mockProcessInstanceList.add(createAnotherMockInstance());
-  	return mockProcessInstanceList;
+    List<ProcessInstance> mockProcessInstanceList = new ArrayList<ProcessInstance>();
+    mockProcessInstanceList.add(createMockInstance());
+    mockProcessInstanceList.add(createAnotherMockInstance());
+    return mockProcessInstanceList;
   }
 
   public static ProcessInstance createAnotherMockInstance() {
-  	ProcessInstance mock = mock(ProcessInstance.class);
+    ProcessInstance mock = mock(ProcessInstance.class);
 
-  	when(mock.getId()).thenReturn(ANOTHER_EXAMPLE_PROCESS_INSTANCE_ID);
-  	when(mock.getBusinessKey()).thenReturn(EXAMPLE_PROCESS_INSTANCE_BUSINESS_KEY);
-  	when(mock.getProcessDefinitionId()).thenReturn(EXAMPLE_PROCESS_DEFINITION_ID);
-  	when(mock.getProcessInstanceId()).thenReturn(ANOTHER_EXAMPLE_PROCESS_INSTANCE_ID);
-  	when(mock.isSuspended()).thenReturn(EXAMPLE_PROCESS_INSTANCE_IS_SUSPENDED);
-  	when(mock.isEnded()).thenReturn(EXAMPLE_PROCESS_INSTANCE_IS_ENDED);
+    when(mock.getId()).thenReturn(ANOTHER_EXAMPLE_PROCESS_INSTANCE_ID);
+    when(mock.getBusinessKey()).thenReturn(EXAMPLE_PROCESS_INSTANCE_BUSINESS_KEY);
+    when(mock.getProcessDefinitionId()).thenReturn(EXAMPLE_PROCESS_DEFINITION_ID);
+    when(mock.getProcessInstanceId()).thenReturn(ANOTHER_EXAMPLE_PROCESS_INSTANCE_ID);
+    when(mock.isSuspended()).thenReturn(EXAMPLE_PROCESS_INSTANCE_IS_SUSPENDED);
+    when(mock.isEnded()).thenReturn(EXAMPLE_PROCESS_INSTANCE_IS_ENDED);
 
-  	return mock;
+    return mock;
   }
 
-  public static Set<String> createMockSetFromList(String list){
-	  return new HashSet<String>(Arrays.asList(list.split(",")));
+  public static Set<String> createMockSetFromList(String list) {
+    return new HashSet<String>(Arrays.asList(list.split(",")));
   }
 
   public static IdentityLink createMockUserAssigneeIdentityLink() {
@@ -882,5 +881,39 @@ public abstract class MockProvider {
     when(jobDefinition.isSuspended()).thenReturn(EXAMPLE_JOB_DEFINITION_IS_SUSPENDED);
 
     return jobDefinition;
+  }
+
+  public static List<UserOperationLogEntry> createUserOperationLogEntries() {
+    List<UserOperationLogEntry> entries = new ArrayList<UserOperationLogEntry>();
+    entries.add(createUserOperationLogEntry());
+    return entries;
+  }
+
+  // User Operation Log
+  public static final String EXAMPLE_USER_OPERATION_LOG_ID = "userOpLogId";
+  public static final String EXAMPLE_USER_OPERATION_ID = "opId";
+  public static final String EXAMPLE_USER_OPERATION_TYPE = UserOperationLogEntry.OPERATION_TYPE_CLAIM;
+  public static final String EXAMPLE_USER_OPERATION_ENTITY = UserOperationLogEntry.ENTITY_TYPE_TASK;
+  public static final String EXAMPLE_USER_OPERATION_PROPERTY = "opProperty";
+  public static final String EXAMPLE_USER_OPERATION_ORG_VALUE = "orgValue";
+  public static final String EXAMPLE_USER_OPERATION_NEW_VALUE = "newValue";
+  public static final String EXAMPLE_USER_OPERATION_TIMESTAMP = "2014-02-20T16:53:37";
+
+  private static UserOperationLogEntry createUserOperationLogEntry() {
+    UserOperationLogEntry entry = mock(UserOperationLogEntry.class);
+    when(entry.getId()).thenReturn(EXAMPLE_USER_OPERATION_LOG_ID);
+    when(entry.getProcessDefinitionId()).thenReturn(EXAMPLE_PROCESS_DEFINITION_ID);
+    when(entry.getProcessInstanceId()).thenReturn(EXAMPLE_PROCESS_INSTANCE_ID);
+    when(entry.getExecutionId()).thenReturn(EXAMPLE_EXECUTION_ID);
+    when(entry.getTaskId()).thenReturn(EXAMPLE_TASK_ID);
+    when(entry.getUserId()).thenReturn(EXAMPLE_USER_ID);
+    when(entry.getTimestamp()).thenReturn(DateTimeUtil.parseDateTime(EXAMPLE_USER_OPERATION_TIMESTAMP).toDate());
+    when(entry.getOperationId()).thenReturn(EXAMPLE_USER_OPERATION_ID);
+    when(entry.getOperationType()).thenReturn(EXAMPLE_USER_OPERATION_TYPE);
+    when(entry.getEntityType()).thenReturn(EXAMPLE_USER_OPERATION_ENTITY);
+    when(entry.getProperty()).thenReturn(EXAMPLE_USER_OPERATION_PROPERTY);
+    when(entry.getOrgValue()).thenReturn(EXAMPLE_USER_OPERATION_ORG_VALUE);
+    when(entry.getNewValue()).thenReturn(EXAMPLE_USER_OPERATION_NEW_VALUE);
+    return entry;
   }
 }
